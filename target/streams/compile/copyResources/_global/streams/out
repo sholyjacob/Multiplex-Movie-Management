@@ -1,0 +1,5 @@
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\PlaySamples\multiplex-movie-management\conf\application.conf,D:\PlaySamples\multiplex-movie-management\target\scala-2.13\classes\application.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\PlaySamples\multiplex-movie-management\conf\logback.xml,D:\PlaySamples\multiplex-movie-management\target\scala-2.13\classes\logback.xml)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\PlaySamples\multiplex-movie-management\conf\routes,D:\PlaySamples\multiplex-movie-management\target\scala-2.13\classes\routes)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(D:\PlaySamples\multiplex-movie-management\conf\META-INF\persistence.xml,D:\PlaySamples\multiplex-movie-management\target\scala-2.13\classes\META-INF\persistence.xml)[0m

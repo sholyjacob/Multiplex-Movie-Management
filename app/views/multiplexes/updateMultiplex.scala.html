@@ -1,0 +1,29 @@
+
+@import views.html.multiplexes.common
+@(multiplexForm : Form[MultiplexModel])(implicit request: Http.Request, messages: play.i18n.Messages)
+@import helper._
+
+@common("Edit Multiplex") {
+    <h4><a href="@routes.HomeController.index()">Home</a></h4>
+    @helper.form(action = routes.MultiplexController.update()) {
+        <!--
+            <form action="routes.ProductController.save()" method="POST">
+            <label>Enter Product Id</label>
+            <input type="number" name="id">
+            -->
+        <fieldset>
+            <legend>Multiplex</legend>
+            @* CSRF TOKEN SUPPORT *@
+            @helper.CSRF.formField
+            @*
+            @helper.inputText(productForm("id"), Symbol("_label") -> "Enter Product Id")
+            *@
+            @helper.inputText(multiplexForm("name"), Symbol("_label") -> "Enter Multiplex Name")
+            @helper.inputText(multiplexForm("address"), Symbol("_label") -> "Enter Multiplex Address")
+            @helper.inputText(multiplexForm("noOfScreens"), Symbol("_label") -> "EnterNumber of Screens")
+
+            <input type="submit" value="SAVE" />
+        </fieldset>
+    }
+}
+

@@ -1,0 +1,29 @@
+
+@import views.html.movies.common
+@(multiplexes : List[MultiplexModel])
+
+@common("Multiplexes") {
+
+    <h4><a href="@routes.HomeController.index()">Home</a></h4>
+    <h4><a href="@routes.MultiplexController.createcMultiplex()">Add Multiplex</a></h4>
+
+    <div>
+    @for(multiplex <- multiplexes){
+        <div>
+            <table>
+                <th>Multiplex Name:</th>
+                <th>@multiplex.name</th>
+                <tr></tr>
+                <th>Address:</th>
+                <th>@multiplex.address</th>
+                <tr></tr>
+                <th>No of Screens:</th>
+                <th>@multiplex.noOfSccreens</th>
+                <th><h4><a href="@routes.MultiplexController.updateMultiplex(multiplex.getId)">Edit Multiplex</a></h4></th>
+                <th><h4><a href="@routes.MultiplexController.deleteMultiplex(multiplex.getId)">Delete  Multiplex</a></h4></th>
+            </table>
+        </div>
+    }
+    </div>
+
+}

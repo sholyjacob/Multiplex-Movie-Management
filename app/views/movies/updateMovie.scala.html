@@ -1,0 +1,28 @@
+@import views.html.movies.common
+@(movieForm : Form[MovieModel])(implicit request: Http.Request, messages: play.i18n.Messages)
+@import helper._
+
+@common("Edit Movie") {
+    <h4><a href="@routes.HomeController.index()">Home</a></h4>
+    @helper.form(action = routes.MovieController.update()) {
+        <!--
+            <form action="routes.ProductController.save()" method="POST">
+            <label>Enter Product Id</label>
+            <input type="number" name="id">
+            -->
+        <fieldset>
+            <legend>Edit</legend>
+            @* CSRF TOKEN SUPPORT *@
+            @helper.CSRF.formField
+            @*
+            @helper.inputText(productForm("id"), Symbol("_label") -> "Enter Product Id")
+            *@
+            @helper.inputText(movieForm("name"), Symbol("_label") -> "Movie Name")
+            @helper.inputText(movieForm("category"), Symbol("_label") -> "Enter Movie Category")
+            @helper.inputText(movieForm("director"), Symbol("_label") -> "Enter Director Name")
+            @helper.inputText(movieForm("producer"), Symbol("_label") -> "Enter Producer Name")
+            @helper.inputDate(movieForm("releaseDate"), Symbol("_label") -> "Enter release date")
+            <input type="submit" value="SAVE" />
+        </fieldset>
+    }
+}
