@@ -1,13 +1,11 @@
 package controllers;
 
-import Actor.SearchActor;
+
+import actor.SearchActor;
 import akka.actor.ActorSystem;
 import akka.stream.Materializer;
 import akka.stream.javadsl.Flow;
-import akka.stream.javadsl.Sink;
-import akka.stream.javadsl.Source;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import play.libs.F;
 import play.libs.streams.ActorFlow;
 import play.mvc.Http;
@@ -15,11 +13,8 @@ import play.mvc.Result;
 import play.mvc.WebSocket;
 
 import javax.inject.Inject;
-import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-
-import static play.mvc.Results.ok;
 
 public class SearchController {
     @Inject

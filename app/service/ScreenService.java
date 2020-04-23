@@ -1,15 +1,15 @@
 package service;
 
-import RestDTO.ScreenDTO;
-import RestDTO.SearchItem;
-import entity.Movie;
-import entity.Screen;
-import model.ScreenModel;
-import org.modelmapper.ModelMapper;
-import repository.MovieRepository;
-import repository.MultiplexRepository;
-import repository.ScreenRepository;
 
+import entities.Movie;
+import entities.Screen;
+import models.ScreenDTO;
+import models.ScreenModel;
+import models.SearchItem;
+import repository.JpaMovieRepository;
+import repository.JpaMultiplexRepository;
+import repository.ScreenRepository;
+import org.modelmapper.ModelMapper;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
@@ -22,9 +22,9 @@ public class ScreenService {
     @Inject
     ScreenRepository screenRepository;
     @Inject
-    MovieRepository movieRepository;
+    JpaMovieRepository movieRepository;
     @Inject
-    MultiplexRepository multiplexRepository;
+    JpaMultiplexRepository multiplexRepository;
 
     public ScreenModel getScreenByMultiplexAndScreenNumber(Integer multiplexID, Integer screenNumber) {
         Screen screen = screenRepository.getScreenByMultiplexAndScreenNumber(multiplexID, screenNumber);
@@ -46,15 +46,14 @@ public class ScreenService {
 
     public List<SearchItem> getSearchResult(String searchString, int movieOrMulti) {
         if (movieOrMulti == 1) {
-            return movieRepository.find(searchString).stream().map(m -> {
+            return movieRepository.searchByName(searchString).stream().map(m -> {
                 mapp(m);
                 return  modelMapper.map(m, SearchItem.class);
             }).collect(Collectors.toList());
         } else {
-            return multiplexRepository.find(searchString).stream().map(m -> modelMapper.map(m, SearchItem.class)).collect(Collectors.toList());
+            return multiplexRepository.searchByName(searchString).stream().map(m -> modelMapper.map(m, SearchItem.class)).collect(Collectors.toList());
         }
     }
-
     public SearchItem mapp(Movie movie) {
         SearchItem searchItem = modelMapper.map(movie, SearchItem.class);
         if (searchItem != null && movie != null && movie.getScreens() != null) {
@@ -62,7 +61,6 @@ public class ScreenService {
             searchItem.setScreens(screenDTOS);
         }
         return searchItem;
-
     }
 
 }

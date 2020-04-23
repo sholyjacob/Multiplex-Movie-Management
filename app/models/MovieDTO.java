@@ -1,4 +1,4 @@
-package RestDTO;
+package models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

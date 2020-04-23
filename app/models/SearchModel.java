@@ -1,4 +1,4 @@
-package RestDTO;
+package models;
 
 public class SearchModel {
     String searchString;

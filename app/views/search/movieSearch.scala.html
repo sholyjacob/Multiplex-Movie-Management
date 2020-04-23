@@ -2,101 +2,142 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h1>Movie Search</h1>
-        <div id="messageContent"></div>
+    <div class="search">
 
+        <div  style="text-align: center;
+                margin: 0 auto">
+            <div >
+                <h2 style="margin-bottom: 20px">Search</h2>
+                <input id="search" type="text"  placeholder="Search">
+                <div >
+                    <button id="sendButton" type="button">Search</button>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;margin: 0 auto">
         <form>
-            <textarea id="messageInput"></textarea>
-            <button id="sendButton" >Send</button>
+                <input type="radio" name="rad" value="1" checked>Movie
+                <input type="radio" name="rad" value="2">Multiplex
         </form>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script>
-                let webSocket;
-                let messageInput;
+        </div>
+    </div>
+    <div id="messageContent"></div>
 
-                function init() {
-                    initWebSocket();
+    <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        var webSocket;
+        var searchString;
+        var message;
+
+        function init() {
+            initWebSocket();
+        }
+
+        function initWebSocket() {
+            webSocket = new WebSocket("@url");
+            webSocket.onopen = onOpen;
+            webSocket.onclose = onClose;
+            webSocket.onmessage = onMessage;
+            webSocket.onerror = onError;
+        }
+
+        function onOpen(evt) {
+            writeToScreen("CONNECTED");
+        }
+
+        function onClose(evt) {
+            writeToScreen("DISCONNECTED");
+        }
+
+        function onError(evt) {
+            writeToScreen("ERROR: " + evt.data);
+            writeToScreen("ERROR: " + JSON.stringify(evt));
+        }
+
+        function onMessage(evt) {
+            var receivedData = JSON.parse(evt.data);
+            console.log("New Data: ", receivedData);
+            listData(receivedData.body)
+        }
+
+        function appendMessageToView(title, message) {
+            $("#messageContent").append("<p>" + title + ": " + message + "</p>");
+        }
+
+        function listData(data) {
+            for (i in data) {
+                if (message.movieOrMulti === "2") {
+                    $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-searchItem\"><h5 class=\"card-title\">Name of the Multiplex : " + data[i].name + "</h5><p class=\"card-text\">Address : " + data[i].address + "</p><p class=\"card-text\">Number of Screens : " + data[i].numberOfScreens + "</p><p class=\"card-text\">Now Screening : " + sublistMult(data[i].screens) + "</p></div></div>");
+                } else {
+                    $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-searchItem\"><h5 class=\"card-title\">Movie Name : " + data[i].name + "</h5><p class=\"card-text\">Directed By : " + data[i].director + "</p><p class=\"card-text\">Release Date : " + data[i].releaseDate + "\"</p><p class=\"card-text\">Now Screening : " + sublistMovie(data[i].screens) + "</p></div></div>");
                 }
 
-                function initWebSocket() {
-                    console.log("actor initiated: ");
-                    webSocket = new WebSocket("@url");
-                    webSocket.onopen = onOpen;
-                    webSocket.onclose = onClose;
-                    webSocket.onmessage = onMessage;
-                    webSocket.onerror = onError;
-                }
+            }
+        }
 
-                function onOpen(evt) {
-                    writeToScreen("CONNECTED");
-                }
+        function sublistMult(screenModel) {
+            var screen = "";
+            for (i in screenModel) {
+                screen = (screenModel[i].movie.movieName + " ( screen " + screenModel[i].ScreenNumber + " )") + (screen === "" ? screen : "," + screen) ;
+            }
+            return screen;
+        }
 
-                function onClose(evt) {
-                    writeToScreen("DISCONNECTED");
-                    appendMessageToView(":", "DISCONNECTED");
-                }
+        function sublistMovie(screenModel) {
+            var screen = "";
+            for (i in screenModel) {
+                screen = (screenModel[i].multiplex.name + " ( screen " + screenModel[i].ScreenNumber + " )") + (screen === "" ? screen : "," + screen) ;
+            }
+            return screen;
+        }
 
-                function onError(evt) {
-                    writeToScreen("ERROR: " + evt.data);
-                    writeToScreen("ERROR: " + JSON.stringify(evt));
-                }
+        function writeToScreen(message) {
+            console.log("New message: ", message);
+        }
 
-                function onMessage(evt) {
-                    var receivedData = JSON.parse(evt.data);
-                    console.log("New Data: ", receivedData);
-                    appendMessageToView("Server", receivedData.body);
-                }
+        function doSend(protocolMessage) {
+            if (webSocket.readyState === WebSocket.OPEN) {
+                writeToScreen("SENT: " + protocolMessage.message);
+                webSocket.send(JSON.stringify(protocolMessage));
+            } else {
+                writeToScreen("Could not send data. Websocket is not open.");
+            }
+        }
 
-                function appendMessageToView(title, message) {
-                    $("#messageContent").append("<p>" + title + ": " + message + "</p>");
-                }
-
-                function writeToScreen(message) {
-                    console.log("New message: ", message);
-                }
-
-                function doSend(protocolMessage) {
-                    if(webSocket.readyState == WebSocket.OPEN) {
-                        writeToScreen("SENT: " + protocolMessage.message);
-                        webSocket.send(JSON.stringify(protocolMessage));
-                    } else {
-                        writeToScreen("Could not send data. Websocket is not open.");
-                    }
-                }
-
-                window.addEventListener("load", init, false);
-
-                $("#sendButton").click(function () {
-                    console.log("Submitting1.");
-                    newMessage();
-                });
+        window.addEventListener("load", init, false);
 
 
-                $(window).on("keydown", function (e) {
-                    if (e.which == 13) {
-                        console.log("Enter pressed.");
-                        newMessage();
-                        return false;
-                    }
-                });
+        $("#sendButton").click(function () {
+            console.log("Submitting.");
+            newMessage();
+        });
 
-                function newMessage() {
-                    console.log("new message")
-                    messageInput = $("#messageInput").val();
-                    $("#messageInput").val("");
-                    if ($.trim(messageInput) == "") {
-                        return false;
-                    }
+        $(window).on("keydown", function (e) {
+            if (e.which === 13) {
+                console.log("Enter pressed.");
+                newMessage();
+                return false;
+            }
+        });
 
-                    appendMessageToView("Me", messageInput);
+        function newMessage() {
+            searchString = $("#search").val();
+            document.getElementById("search").value = "";
+            if ($.trim(searchString) === "") {
+                return false;
+            }
+            $("#messageContent").empty()
+            appendMessageToView("Result for ", searchString);
+            message = {
+                searchString: searchString,
+                movieOrMulti: $("input[name='rad']:checked").val()
+            };
+            console.log(message)
 
-                    var message = {
-                        message: messageInput
-                    };
-
-                    doSend(message);
-                }
-        </script>
+            doSend(message);
+        }
+    </script>
 
     </body>
 </html>

@@ -3,33 +3,36 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
+GET     /                           controllers.HomeController.index(request: Request)
 
 POST    /movie/create              controllers.MovieController.save(request: Request)
-GET     /movies                      controllers.MovieController.listAll
+GET     /movies                     controllers.MovieController.listAll
 GET     /movie/create              controllers.MovieController.createMovie(request: Request)
 GET     /movie/update              controllers.MovieController.updateMovie(request: Request,id: Integer)
-GET     /movie/updateMovie             controllers.MovieController.update(request: Request)
-
+GET     /movie/updateMovie          controllers.MovieController.update(request: Request,id:Integer)
 GET     /movie/delete              controllers.MovieController.deleteMovie(request: Request,id:Integer)
 
 POST    /multiplex/create              controllers.MultiplexController.save(request: Request)
 GET     /multiplexs                      controllers.MultiplexController.listAll
 GET     /multiplex/create              controllers.MultiplexController.createcMultiplex(request: Request)
 GET     /multiplex/update              controllers.MultiplexController.updateMultiplex(request:Request,id:Integer)
-GET     /multiplex/updateMovie              controllers.MultiplexController.update(request:Request)
+GET     /multiplex/updateMovie              controllers.MultiplexController.update(request:Request,id:Integer)
 GET     /multiplex/delete              controllers.MultiplexController.deleteMultiplex(request: Request,id:Integer)
 
 # Routes for websocket
-GET     /sock                       controllers.SocketController.index(request: Request)
-GET     /sock/chat                  controllers.SocketController.socket
 
-GET     /sockMultiplex                       controllers.SocketControllerMultiplex.index(request: Request)
-GET     /sockMultiplex/chat                  controllers.SocketControllerMultiplex.socket
+GET     /sock/chat                 controllers.SearchController.socket
+GET     /search/socket             controllers.SearchController.socket
+GET      /api/search                controllers.SearchRestController.search(searchString:String,movieOrMulti:Integer)
 
 GET     /movie/searchByName              controllers.MovieController.searchByName(name:String)
 GET     /multiplex/searchByName              controllers.MultiplexController.searchByName(name:String)
 
+GET         /listScreen                       controllers.AllotMovieController.listScreen(request:Request, multiplexID:Integer)
+GET         /allot                            controllers.AllotMovieController.allot(request:Request,movieID:Integer, multiplexID:Integer,screenNumber:Integer)
+GET         /allotList                        controllers.AllotMovieController.allotList(request:Request,multiplexID:Integer,screenNumber:Integer)
+GET         /removeAllocation                 controllers.AllotMovieController.removeAllocation(request:Request,movieID:Integer, multiplexID:Integer,screenNumber:Integer)
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-

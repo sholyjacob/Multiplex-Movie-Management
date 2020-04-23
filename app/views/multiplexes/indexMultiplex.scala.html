@@ -4,26 +4,36 @@
 
 @common("Multiplexes") {
 
-    <h4><a href="@routes.HomeController.index()">Home</a></h4>
-    <h4><a href="@routes.MultiplexController.createcMultiplex()">Add Multiplex</a></h4>
-
+    <button type="button"  onclick="location.href = '@routes.HomeController.index()'">
+     Home
+    </button>
+    <button type="button"  onclick="location.href = '@routes.MultiplexController.createcMultiplex()'">Add Multiplex
+    </button>
     <div>
-    @for(multiplex <- multiplexes){
-        <div>
-            <table>
-                <th>Multiplex Name:</th>
-                <th>@multiplex.name</th>
-                <tr></tr>
-                <th>Address:</th>
-                <th>@multiplex.address</th>
-                <tr></tr>
-                <th>No of Screens:</th>
-                <th>@multiplex.noOfSccreens</th>
-                <th><h4><a href="@routes.MultiplexController.updateMultiplex(multiplex.getId)">Edit Multiplex</a></h4></th>
-                <th><h4><a href="@routes.MultiplexController.deleteMultiplex(multiplex.getId)">Delete  Multiplex</a></h4></th>
-            </table>
+        <div class="card-columns" >
+            <ul style="list-style-type: none;">
+                @for(multiplex <- multiplexes) {
+                <li>
+                    <div class="card m-2" style="width: 18rem;border:solid">
+                        <div class="card-header text-center"><h5 class="card-title">@multiplex.name</h5></div>
+                        <div class="card-searchItem">
+                            <p class="card-text">Address: @multiplex.address</p>
+                            <p class="card-text">No of Screens: @multiplex.noOfSccreens</p>
+                        </div>
+                        <button type="button"  onclick="location.href = '@routes.MultiplexController.updateMultiplex(multiplex.getId)'">
+                            Edit Multiplex
+                        </button>
+                        <button type="button"  onclick="location.href = '@routes.MultiplexController.deleteMultiplex(multiplex.getId)'">
+                            Delete  Multiplex
+                        </button>
+                        <button type="button"  onclick="location.href = '@routes.AllotMovieController.listScreen(multiplex.getId)'">
+                            Allot Movie
+                        </button>
+                    </div>
+                </li>
+                }
+            </ul>
         </div>
-    }
     </div>
 
 }

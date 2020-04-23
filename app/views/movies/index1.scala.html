@@ -3,29 +3,36 @@
 @(movies : List[MovieModel])
 
 @common("Movies") {
-
- <!-- <input type="submit" onclick="location.href='@routes.MovieController.createMovie()" value="Add Movie" />-->
-  <!--<button class="delete" href="@routes.MovieController.createMovie()">Add Movie</button>-->
-  <h4><a href="@routes.HomeController.index()">Home</a></h4>
-  <h4><a href="@routes.MovieController.createMovie()">Add Movie</a></h4>
+  <button type="button"  onclick="location.href = '@routes.HomeController.index()'">
+      Home
+  </button>
+  <button type="button"  onclick="location.href = '@routes.MovieController.createMovie()'">
+    Add Movie
+  </button>
   <div>
-    @for(movie <- movies){
-      <div>
-        <table>
-      <th>Movie Name:</th>
-      <th>@movie.name</th>
-          <tr></tr>
-      <th>Director:</th>
-        <th>@movie.director</th>
-        <tr></tr>
-        <th>Producer:</th>
-        <th>@movie.producer</th>
-          <th><h4><a href="@routes.MovieController.updateMovie(movie.getId)">Edit Movie</a></h4></th>
-
-          <th><h4><a href="@routes.MovieController.deleteMovie(movie.getId)">Delete  Movie</a></h4></th>
-        </table>
-        </div>
-    }
+    <div class="card-columns" >
+      <ul style="list-style-type: none;">
+        @for(movie <- movies) {
+        <li>
+          <div class="card m-2" style="width: 18rem;border:solid">
+            <div class="card-header text-center"><h5 class="card-title">@movie.name</h5></div>
+            <div class="card-searchItem">
+              <p class="card-text">Directed By : @movie.director</p>
+              <p class="card-text">Producer By : @movie.producer</p>
+              <p class="card-text">Movie Category :@movie.category</p>
+              <p class="card-text">Release Date : @movie.releaseDate</p>
+            </div>
+            <button type="button"  onclick="location.href = '@routes.MovieController.updateMovie(movie.getId)'">
+              Edit Movie
+            </button>
+            <button type="button"  onclick="location.href = '@routes.MovieController.deleteMovie(movie.getId)'">
+              Delete  Movie
+            </button>
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
   </div>
 
 }

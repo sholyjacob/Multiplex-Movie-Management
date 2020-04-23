@@ -1,9 +1,19 @@
+@import search._
+@(url: String)
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <h4><a href="@routes.MovieController.listAll()"> Movie</a><a href="@routes.SocketController.index()"> Movie Search</a></h4>
+  <div style="text-align: center;margin: 0 auto">
+  <button type="button"  onclick="location.href = '@routes.MovieController.listAll()'">
+    Movies
+  </button>
   <tr></tr>
-  <h4><a href="@routes.MultiplexController.listAll()"> Multiplex</a><a href="@routes.SocketControllerMultiplex.index()"> Multiplex Search</a></h4>
+  <button type="button"  onclick="location.href = '@routes.MultiplexController.listAll()'">
+    Multiplexes
+  </button>
+  </div>
+  @movieSearch(url)
+
 </head>
 <body>
 

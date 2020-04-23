@@ -1,11 +1,15 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 public class Multiplex {
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "multiplex")
+    @JsonManagedReference
+    List<Screen> screens;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer id;

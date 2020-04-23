@@ -47,10 +47,10 @@ public class JpaMultiplexRepository {
         });
         return multiplex;
     }
-    public Multiplex searchByName(String name){
+    public List<Multiplex> searchByName(String name){
         return  this.wrap(entityManager -> {
-            Multiplex multiplex =  entityManager.createQuery("select m from Multiplex m where m.name =:name", Multiplex.class).setParameter("name",name).getSingleResult();
-            return multiplex;
+            return entityManager.createQuery("select m from Multiplex m where lower(m.name)  like lower(:name)", Multiplex.class).setParameter("name","%"+name+"%").getResultList();
+
         });
     }
 }

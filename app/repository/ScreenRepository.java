@@ -1,6 +1,7 @@
 package repository;
 
-import entity.Screen;
+
+import entities.Screen;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
@@ -14,8 +15,6 @@ import java.util.function.Function;
 public class ScreenRepository {
     @Inject
     private JPAApi jpaApi;
-
-    // wrap this.jpaApi.withTransaction : to make it reusable
     private <T> T wrap(Function<EntityManager, T> function) {
         return this.jpaApi.withTransaction(function);
     }

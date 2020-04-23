@@ -57,10 +57,13 @@ public class JpaMovieRepository {
         });
         return movie;
     }
-    public Movie searchByName(String name){
+    public List<Movie> searchByName(String name){
        return  this.wrap(entityManager -> {
-            Movie movie =  entityManager.createQuery("select m from Movie m where m.name =:name", Movie.class).setParameter("name",name).getSingleResult();
-            return movie;
+           return entityManager.createQuery("select m from Movie m where lower(m.name) like lower(:name)", Movie.class).setParameter("name","%"+name+"%").getResultList();
+
         });
+    }
+    public List<Movie> getNotAllottedMovie(Integer MovieID) {
+        return this.wrap(entityManager -> entityManager.createQuery("select m from Movie m where m.id!=:MovieID ", Movie.class).setParameter("MovieID", MovieID).getResultList());
     }
 }

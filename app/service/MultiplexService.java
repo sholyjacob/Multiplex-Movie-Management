@@ -38,9 +38,11 @@ public class MultiplexService {
     }
     private Multiplex createMultiplex(MultiplexModel model){
         Multiplex multiplex = new Multiplex();
+        multiplex.setId(model.getId());
         multiplex.setName(model.getName());
         multiplex.setAddress(model.getAddress());
-        multiplex.setNoOfSccreens(model.noOfSccreens);
+        System.out.println("screens**************"+model.getNoOfSccreens());
+        multiplex.setNoOfSccreens(model.getNoOfSccreens());
         return multiplex;
     }
     public void deleteMultiplex(Integer id){
@@ -55,14 +57,12 @@ public class MultiplexService {
     public MultiplexModel updateMultiplex(MultiplexModel multiplexModel){
         Multiplex multiplex=createMultiplex(multiplexModel);
 
-        Multiplex multiplex_added = this.repository.insert(multiplex);
+        Multiplex multiplex_added = this.repository.upadate(multiplex);
         multiplexModel.setId(multiplex_added.getId());
         return multiplexModel;
     }
     public MultiplexModel searchByName(String name){
-        Multiplex multiplex=this.repository.searchByName(name);
-        List<Multiplex> multiplexs =new ArrayList<>();
-        multiplexs.add(multiplex);
+        List<Multiplex> multiplexs=this.repository.searchByName(name);
         MultiplexModel model =createMultiplexModels(multiplexs).get(0);
         return model;
     }

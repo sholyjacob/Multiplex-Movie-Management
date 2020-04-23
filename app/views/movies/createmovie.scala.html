@@ -3,19 +3,16 @@
 @import helper._
 
     @common("Add Movie") {
-        <h4><a href="@routes.HomeController.index()">Home</a></h4>
+    <button type="button"  onclick="location.href = '@routes.HomeController.index()'">
+        Home
+    </button>
         @helper.form(action = routes.MovieController.save()) {
-            <!--
-            <form action="routes.ProductController.save()" method="POST">
-            <label>Enter Product Id</label>
-            <input type="number" name="id">
-            -->
             <fieldset>
                 <legend>Movie</legend>
                 @* CSRF TOKEN SUPPORT *@
                 @helper.CSRF.formField
                 @*
-                    @helper.inputText(productForm("id"), Symbol("_label") -> "Enter Product Id")
+                    @helper.inputText(movieForm("id"), Symbol("_label") -> "Enter Movie Id")
                 *@
                 @helper.inputText(movieForm("name"), Symbol("_label") -> "Enter Movie Name", Symbol("placeholder") -> "Enter Movie name")
                 @helper.inputText(movieForm("category"), Symbol("_label") -> "Enter Movie Category",Symbol("placeholder") -> "Enter movie category")
