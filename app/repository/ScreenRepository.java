@@ -22,7 +22,7 @@ public class ScreenRepository {
     public Screen getScreenByMultiplexAndScreenNumber(Integer multiplexID, Integer screenNumber) {
         Screen screen = null;
         try {
-            screen = this.wrap(entityManager -> entityManager.createQuery("select s from Screen s where s.multiplex.id=:multiplexID and s.ScreenNumber=:screenNumber and s.isDeleted=false", Screen.class)
+            screen = this.wrap(entityManager -> entityManager.createQuery("select s from Screen s where s.multiplex.id=:multiplexID and s.ScreenNumber=:screenNumber", Screen.class)
                     .setParameter("multiplexID", multiplexID).setParameter("screenNumber", screenNumber).getSingleResult());
         } catch (Exception ex) {
             ex.printStackTrace();

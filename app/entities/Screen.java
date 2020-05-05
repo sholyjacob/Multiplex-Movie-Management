@@ -1,7 +1,6 @@
 package entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -12,14 +11,11 @@ public class Screen {
     private Integer id;
     private Integer ScreenNumber;
     @ManyToOne
-    @Where(clause = "isDeleted = 'false'")
     @JsonBackReference
     private Multiplex multiplex;
     @ManyToOne
-    @Where(clause = "isDeleted = 'false'")
     @JsonBackReference
     private Movie movie;
-    private boolean isDeleted;
 
     public Screen() {
     }
@@ -29,7 +25,6 @@ public class Screen {
         ScreenNumber = screenNumber;
         this.multiplex = multiplex;
         this.movie = movie;
-        this.isDeleted = isDeleted;
     }
 
     public Integer getId() {
@@ -64,11 +59,4 @@ public class Screen {
         this.movie = movie;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
 }

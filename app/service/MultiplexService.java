@@ -41,7 +41,6 @@ public class MultiplexService {
         multiplex.setId(model.getId());
         multiplex.setName(model.getName());
         multiplex.setAddress(model.getAddress());
-        System.out.println("screens**************"+model.getNoOfSccreens());
         multiplex.setNoOfSccreens(model.getNoOfSccreens());
         return multiplex;
     }
