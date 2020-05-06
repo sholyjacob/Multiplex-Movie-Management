@@ -28,8 +28,8 @@ public class SearchItem {
     private String name;
     @JsonProperty("address")
     private String address;
-    @JsonProperty("numberOfScreens")
-    private Integer numberOfScreens;
+    @JsonProperty("noOfSccreens")
+    private Integer noOfSccreens;
 
     @Override
     public String toString() {
@@ -45,7 +45,7 @@ public class SearchItem {
                 ", isDeleted=" + isDeleted +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", numberOfScreens=" + numberOfScreens +
+                ", noOfSccreens=" + noOfSccreens +
                 '}';
     }
 
@@ -159,14 +159,14 @@ public class SearchItem {
         this.address = address;
     }
 
-    @JsonProperty("numberOfScreens")
-    public Integer getNumberOfScreens() {
-        return numberOfScreens;
+    @JsonProperty("noOfSccreens")
+    public Integer getNoOfSccreens() {
+        return noOfSccreens;
     }
 
-    @JsonProperty("numberOfScreens")
-    public void setNumberOfScreens(Integer numberOfScreens) {
-        this.numberOfScreens = numberOfScreens;
+    @JsonProperty("noOfSccreens")
+    public void setNoOfSccreens(Integer noOfSccreens) {
+        this.noOfSccreens = noOfSccreens;
     }
 
 }

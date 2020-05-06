@@ -68,7 +68,7 @@
         function listData(data) {
             for (i in data) {
                 if (message.movieOrMulti === "2") {
-                    $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-searchItem\"><h5 class=\"card-title\">Name of the Multiplex : " + data[i].name + "</h5><p class=\"card-text\">Address : " + data[i].address + "</p><p class=\"card-text\">Number of Screens : " + data[i].numberOfScreens + "</p><p class=\"card-text\">Now Screening : " + sublistMult(data[i].screens) + "</p></div></div>");
+                    $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-searchItem\"><h5 class=\"card-title\">Name of the Multiplex : " + data[i].name + "</h5><p class=\"card-text\">Address : " + data[i].address + "</p><p class=\"card-text\">Number of Screens : " + data[i].noOfSccreens + "</p><p class=\"card-text\">Now Screening : " + sublistMult(data[i].screens) + "</p></div></div>");
                 } else {
                     $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-searchItem\"><h5 class=\"card-title\">Movie Name : " + data[i].name + "</h5><p class=\"card-text\">Directed By : " + data[i].director + "</p><p class=\"card-text\">Release Date : " + data[i].releaseDate + "\"</p><p class=\"card-text\">Now Screening : " + sublistMovie(data[i].screens) + "</p></div></div>");
                 }

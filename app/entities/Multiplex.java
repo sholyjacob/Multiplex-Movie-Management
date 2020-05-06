@@ -49,4 +49,12 @@ public class Multiplex {
     public void setNoOfSccreens(Integer noOfSccreens) {
         this.noOfSccreens = noOfSccreens;
     }
+
+    public List<Screen> getScreens() {
+        return screens;
+    }
+
+    public void setScreens(List<Screen> screens) {
+        this.screens = screens;
+    }
 }
